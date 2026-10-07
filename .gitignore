@@ -1,0 +1,10 @@
+node_modules
+dist
+*.log
+.DS_Store
+# raw source assets (optimized copies live in /public/images)
+/Screenshot*.png
+/HOME.png
+/HEROS.png
+/FOTO DEL HEROS.png
+/research.md
