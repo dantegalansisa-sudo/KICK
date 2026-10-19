@@ -59,6 +59,7 @@ export const PLACE_COORDS: Record<string, Pt> = {
   sos: [-70.5, 19.73],
   nor: [-70.55, 19.42],
   daj: [-71.68, 19.5],
+  mcr: [-71.49, 19.7],
   cap: [-72.2, 19.7],
   trr: [-71.96, 19.6],
 };

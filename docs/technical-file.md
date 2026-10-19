@@ -45,7 +45,7 @@ Executive Director · Advisory Board · Medical Volunteers / Staff · Community 
 Local public and private organizations (DR) · Local hospitals and clinics · International universities · NGOs and faith-based organizations · Community leaders and municipal governments
 
 ## Alcance geográfico
-Puerto Plata Province · Border towns near Dajabón · Rural and peri-urban areas of Northern DR · Bateys of Northern DR · Cap-Haïtien (Northern Haiti) · Terrier-Rouge (Northern Haiti)
+Puerto Plata Province · Montecristi Province (Castañuelas) — *agregado por el cliente en revisión* · Border towns near Dajabón · Rural and peri-urban areas of Northern DR · Bateys of Northern DR · Cap-Haïtien (Northern Haiti) · Terrier-Rouge (Northern Haiti)
 
 ## Monitoreo y evaluación
 Baseline and endline assessments · Community feedback mechanisms · Health outcome tracking · Reporting to partners and funders

@@ -170,13 +170,14 @@ dd {
   line-height: 1.12;
 }
 
+/* Títulos con un solo color y estilo: las palabras marcadas no cambian. */
 .h1 em,
 .h2 em,
 .h3 em,
 .hero__title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--green-600);
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
 }
 
 .lead {

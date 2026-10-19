@@ -55,13 +55,26 @@ export const en: Dict = {
   },
 
   hero: {
-    eyebrow: 'Dominican Republic · Haiti',
-    title: 'Health that reaches *every* community',
+    eyebrow: 'Kerolle Initiative for Community Health · Since 2007',
+    title: 'Health that reaches every community',
     subtitle:
-      'Free mobile medical clinics, health education and community empowerment for those who need it most — since 2007.',
+      'Free mobile medical clinics, health education and community empowerment on both sides of the border.',
+    countries: { dr: 'Dominican Republic', ht: 'Haiti', joiner: '&' },
     ctaDonate: 'Donate',
     ctaVolunteer: 'Become a volunteer',
     scroll: 'Discover',
+    badge: { value: '1,500+', label: 'people served every year' },
+    prev: 'Previous photo',
+    next: 'Next photo',
+    drag: 'Drag',
+    slides: [
+      { activity: 'Community visits', place: 'Northern Haiti', country: 'ht' },
+      { activity: 'Maternal & child health', place: 'Puerto Plata', country: 'dr' },
+      { activity: 'Binational team', place: 'Montecristi', country: 'both' },
+      { activity: 'Public health training', place: 'Sosúa', country: 'dr' },
+      { activity: 'Health education', place: 'Cap-Haïtien', country: 'ht' },
+      { activity: 'Mobile medical clinic', place: 'Puerto Plata bateyes', country: 'both' },
+    ],
     card: {
       label: 'Next mobile clinic',
       date: 'Dec 12 – 22, 2026',
@@ -69,6 +82,7 @@ export const en: Dict = {
       cta: 'Join',
     },
   },
+
 
   impact: {
     items: [
@@ -178,7 +192,7 @@ export const en: Dict = {
   where: {
     eyebrow: 'Where we work',
     title: 'Northern Hispaniola, for *healthier* lives',
-    body: 'We work across Puerto Plata Province, the bateyes and rural areas of northern DR, border towns near Dajabón and northern Haiti.',
+    body: 'We work across Puerto Plata Province, the bateyes and rural areas of northern DR, Montecristi (Castañuelas), border towns near Dajabón and northern Haiti.',
     cta: 'Request support',
     dr: 'Dominican Republic',
     haiti: 'Haiti',
@@ -189,6 +203,7 @@ export const en: Dict = {
       { id: 'sos', name: 'Sosúa', country: 'DR', type: 'Headquarters', desc: 'Calle Principal #15, Villa Emmanuel. From here we coordinate clinics, volunteers and study programs.', count: 3 },
       { id: 'nor', name: 'Rural & peri-urban north', country: 'DR', type: 'Mobile clinics', desc: 'Health care and education in rural and peri-urban communities of northern DR.', count: 6 },
       { id: 'daj', name: 'Dajabón', country: 'DR · HT', type: 'Cross-border health', desc: 'Dominican–Haitian health collaboration in towns near the border.', count: 4 },
+      { id: 'mcr', name: 'Montecristi · Castañuelas', country: 'DR', type: 'Rural communities', desc: 'Mobile clinics and health education in Castañuelas and other rural communities of Montecristi province.', count: 3 },
       { id: 'cap', name: 'Cap-Haïtien', country: 'HT', type: 'Northern Haiti', desc: 'Community health and training with local leaders in northern Haiti.', count: 3 },
       { id: 'trr', name: 'Terrier-Rouge', country: 'HT', type: 'Northern Haiti', desc: 'Health education and partnerships with community leaders in Terrier-Rouge.', count: 2 },
     ],
@@ -263,6 +278,10 @@ export const en: Dict = {
     eyebrow: 'Gallery',
     title: 'Moments that *inspire* change',
     follow: 'Follow us on Instagram',
+    open: 'View photo',
+    close: 'Close',
+    prev: 'Previous photo',
+    next: 'Next photo',
     alts: [
       'Volunteers walk to a community along a dirt road',
       'A volunteer plays soccer with a boy from the community',

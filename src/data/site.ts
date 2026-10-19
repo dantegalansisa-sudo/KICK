@@ -37,6 +37,16 @@ export const PROGRAM_META: Record<string, { image: string; icon: IconName }> = {
   training: { image: '/images/medical-students.webp', icon: 'clipboard' },
 };
 
+// Carrusel del hero: mezcla de comunidades dominicanas y haitianas (mismo orden que hero.slides).
+export const HERO_SLIDES = [
+  '/images/hero-community-care.webp',
+  '/images/kerolle-child.webp',
+  '/images/team-group.webp',
+  '/images/medical-students.webp',
+  '/images/children-education.webp',
+  '/images/team-celebration.webp',
+];
+
 export const GALLERY = [
   '/images/brigade-walk.webp',
   '/images/volunteer-soccer.webp',

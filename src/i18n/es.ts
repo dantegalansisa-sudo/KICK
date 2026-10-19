@@ -55,13 +55,26 @@ export const es = {
   },
 
   hero: {
-    eyebrow: 'República Dominicana · Haití',
-    title: 'Salud que llega a *cada* comunidad',
+    eyebrow: 'Kerolle Initiative for Community Health · Desde 2007',
+    title: 'Salud que llega a cada comunidad',
     subtitle:
-      'Clínicas médicas móviles gratuitas, educación en salud y empoderamiento comunitario para quienes más lo necesitan, desde 2007.',
+      'Clínicas médicas móviles gratuitas, educación en salud y empoderamiento comunitario a ambos lados de la frontera.',
+    countries: { dr: 'República Dominicana', ht: 'Haití', joiner: 'y' },
     ctaDonate: 'Donar',
     ctaVolunteer: 'Ser voluntario',
     scroll: 'Descubre',
+    badge: { value: '1,500+', label: 'personas atendidas cada año' },
+    prev: 'Foto anterior',
+    next: 'Foto siguiente',
+    drag: 'Desliza',
+    slides: [
+      { activity: 'Visitas comunitarias', place: 'Norte de Haití', country: 'ht' },
+      { activity: 'Salud materno-infantil', place: 'Puerto Plata', country: 'dr' },
+      { activity: 'Equipo binacional', place: 'Montecristi', country: 'both' },
+      { activity: 'Formación en salud pública', place: 'Sosúa', country: 'dr' },
+      { activity: 'Educación en salud', place: 'Cap-Haïtien', country: 'ht' },
+      { activity: 'Clínica médica móvil', place: 'Bateyes de Puerto Plata', country: 'both' },
+    ],
     card: {
       label: 'Próxima clínica móvil',
       date: '12 – 22 Dic, 2026',
@@ -69,6 +82,7 @@ export const es = {
       cta: 'Únete',
     },
   },
+
 
   impact: {
     items: [
@@ -178,7 +192,7 @@ export const es = {
   where: {
     eyebrow: 'Dónde trabajamos',
     title: 'Norte de La Española, por vidas *más sanas*',
-    body: 'Trabajamos en la provincia de Puerto Plata, los bateyes y zonas rurales del norte dominicano, los pueblos fronterizos cerca de Dajabón y el norte de Haití.',
+    body: 'Trabajamos en la provincia de Puerto Plata, los bateyes y zonas rurales del norte dominicano, Montecristi (Castañuelas), los pueblos fronterizos cerca de Dajabón y el norte de Haití.',
     cta: 'Solicitar apoyo',
     dr: 'República Dominicana',
     haiti: 'Haití',
@@ -189,6 +203,7 @@ export const es = {
       { id: 'sos', name: 'Sosúa', country: 'RD', type: 'Sede', desc: 'Calle Principal #15, Villa Emmanuel. Desde aquí coordinamos clínicas, voluntarios y programas de estudio.', count: 3 },
       { id: 'nor', name: 'Norte rural y periurbano', country: 'RD', type: 'Clínicas móviles', desc: 'Atención y educación en salud en comunidades rurales y periurbanas del norte dominicano.', count: 6 },
       { id: 'daj', name: 'Dajabón', country: 'RD · HT', type: 'Salud transfronteriza', desc: 'Colaboración sanitaria dominico-haitiana en pueblos cercanos a la frontera.', count: 4 },
+      { id: 'mcr', name: 'Montecristi · Castañuelas', country: 'RD', type: 'Comunidades rurales', desc: 'Clínicas móviles y educación en salud en Castañuelas y otras comunidades rurales de la provincia Montecristi.', count: 3 },
       { id: 'cap', name: 'Cap-Haïtien', country: 'HT', type: 'Norte de Haití', desc: 'Salud comunitaria y formación junto a líderes locales en el norte de Haití.', count: 3 },
       { id: 'trr', name: 'Terrier-Rouge', country: 'HT', type: 'Norte de Haití', desc: 'Educación en salud y alianzas con líderes comunitarios en Terrier-Rouge.', count: 2 },
     ],
@@ -263,6 +278,10 @@ export const es = {
     eyebrow: 'Galería',
     title: 'Momentos que *inspiran* cambio',
     follow: 'Síguenos en Instagram',
+    open: 'Ampliar foto',
+    close: 'Cerrar',
+    prev: 'Foto anterior',
+    next: 'Foto siguiente',
     alts: [
       'Voluntarios caminan hacia una comunidad por un camino de tierra',
       'Una voluntaria juega fútbol con un niño de la comunidad',

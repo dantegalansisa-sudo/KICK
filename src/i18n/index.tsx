@@ -4,7 +4,7 @@ import { en } from './en';
 
 export type Lang = 'es' | 'en';
 
-const STORAGE_KEY = 'kich-lang';
+const STORAGE_KEY = 'kich-lang-v2';
 const dictionaries: Record<Lang, Dict> = { es, en };
 
 function initialLang(): Lang {
@@ -16,7 +16,7 @@ function initialLang(): Lang {
   } catch {
     /* storage unavailable */
   }
-  return 'es';
+  return 'en';
 }
 
 interface LangContextValue {

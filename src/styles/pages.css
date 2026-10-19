@@ -1742,10 +1742,6 @@
   align-items: center;
 }
 
-.motto__title em {
-  color: var(--accent);
-}
-
 .motto__script {
   display: inline-block;
   margin-top: 18px;
