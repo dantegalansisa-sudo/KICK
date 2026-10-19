@@ -3,12 +3,12 @@ import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLang } from '../i18n';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { IMG, SITE } from '../data/site';
+import { IMG, PROGRAM_META, SITE } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
 import { Field, FormSuccess, Select, fieldA11y, useForm } from '../components/forms';
 import { Eyebrow, MagneticButton, ParallaxImage, Reveal, RevealText } from '../components/motion';
-import { EASE, gridContainer, gridItem } from '../motion';
+import { gridContainer, gridItem } from '../motion';
 
 const AMOUNTS = [25, 50, 100, 250] as const;
 type AmountKey = '25' | '50' | '100' | '250';
@@ -195,8 +195,18 @@ export default function Donate() {
           <div className="donate__side">
             <ParallaxImage src={IMG.donate} alt={t.programs.items[3].imageAlt} className="donate__img" distance={24} />
             <Reveal className="donate__where">
-              <h3 className="mini-title">{d.whereTitle}</h3>
-              <Donut data={t.aboutPage.allocation} />
+              <h3 className="mini-title">{d.supportsTitle}</h3>
+              <ul className="supports">
+                {t.programs.items.map((p) => (
+                  <li key={p.id}>
+                    <span className="supports__icon"><Icon name={PROGRAM_META[p.id].icon} size={18} /></span>
+                    {p.title}
+                  </li>
+                ))}
+              </ul>
+              <p className="supports__note">
+                <Icon name="clipboard" size={16} /> {d.financeNote}
+              </p>
             </Reveal>
           </div>
         </div>
@@ -227,50 +237,5 @@ export default function Donate() {
         </div>
       </section>
     </>
-  );
-}
-
-function Donut({ data }: { data: { label: string; pct: number }[] }) {
-  const R = 54;
-  const C = 2 * Math.PI * R;
-  let offset = 0;
-  const classes = ['donut__s1', 'donut__s2', 'donut__s3', 'donut__s4'];
-  return (
-    <div className="donut">
-      <svg viewBox="0 0 140 140" aria-hidden="true">
-        <circle cx="70" cy="70" r={R} className="donut__bg" />
-        {data.map((row, i) => {
-          const len = (row.pct / 100) * C;
-          const el = (
-            <motion.circle
-              key={row.label}
-              cx="70"
-              cy="70"
-              r={R}
-              className={classes[i]}
-              strokeDasharray={`${len} ${C - len}`}
-              strokeDashoffset={-offset}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.2, duration: 0.6, ease: EASE.smooth }}
-            />
-          );
-          offset += len;
-          return el;
-        })}
-        <text x="70" y="68" textAnchor="middle" className="donut__big">{data[0].pct}%</text>
-        <text x="70" y="86" textAnchor="middle" className="donut__small">{data[0].label.split(' ')[0]}</text>
-      </svg>
-      <ul className="donut__legend">
-        {data.map((row, i) => (
-          <li key={row.label}>
-            <span className={`donut__sw ${classes[i]}`} aria-hidden="true" />
-            <span>{row.label}</span>
-            <strong>{row.pct}%</strong>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

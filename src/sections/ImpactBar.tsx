@@ -5,7 +5,7 @@ import Icon from '../components/Icon';
 import { AnimatedCounter } from '../components/motion';
 import { gridContainer, gridItem } from '../motion';
 
-const ICONS: IconName[] = ['users', 'home', 'stethoscope', 'hand', 'heart'];
+const ICONS: IconName[] = ['users', 'calendar', 'stethoscope', 'book', 'globe'];
 
 export default function ImpactBar() {
   const { t } = useLang();

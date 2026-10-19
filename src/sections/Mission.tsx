@@ -7,7 +7,7 @@ import { Eyebrow, ParallaxImage, Reveal, RevealText } from '../components/motion
 import { EASE } from '../motion';
 
 export default function Mission() {
-  const { t, lang } = useLang();
+  const { t } = useLang();
   const m = t.mission;
   return (
     <section className="section mission">
@@ -25,8 +25,8 @@ export default function Mission() {
             <small>MD, MPH · {m.signatureRole}</small>
           </motion.div>
           <span className="mission__since" aria-hidden="true">
-            <small>{lang === 'es' ? 'Desde' : 'Since'}</small>
-            <strong>2006</strong>
+            <small>{m.since}</small>
+            <strong>2007</strong>
           </span>
         </div>
 

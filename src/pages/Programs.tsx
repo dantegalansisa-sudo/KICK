@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useLang } from '../i18n';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { PROGRAM_META } from '../data/site';
+import { FOCUS_ICONS, PROGRAM_META } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
-import { MagneticButton, ParallaxImage, Reveal, RevealText } from '../components/motion';
+import { MagneticButton, ParallaxImage, Reveal, RevealText, SectionHead } from '../components/motion';
 import { gridContainer, gridItem } from '../motion';
 
 export default function Programs() {
@@ -38,6 +38,27 @@ export default function Programs() {
                 <span className="method__num">{i + 1}</span>
                 <h3>{m.title}</h3>
                 <p>{m.text}</p>
+              </motion.li>
+            ))}
+          </motion.ol>
+        </div>
+      </section>
+
+      <section className="section section--mint focus">
+        <div className="container">
+          <SectionHead eyebrow={pp.focusEyebrow} title={pp.focusTitle} layout="stack" />
+          <motion.ol
+            className="focus__grid"
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {pp.focus.map((f, i) => (
+              <motion.li key={f} variants={gridItem} className="focus__item">
+                <span className="focus__num">0{i + 1}</span>
+                <span className="icon-badge"><Icon name={FOCUS_ICONS[i]} size={22} /></span>
+                <h3>{f}</h3>
               </motion.li>
             ))}
           </motion.ol>

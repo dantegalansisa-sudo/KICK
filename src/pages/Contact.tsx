@@ -85,6 +85,17 @@ export default function Contact() {
 
             <Reveal className="info-card" delay={0.1}>
               <ul className="channels">
+                <li>
+                  <Icon name="users" size={18} />
+                  <div>
+                    <small>{c.personLabel}</small>
+                    <strong className="channels__person">{c.personName}</strong>
+                    <span>
+                      {c.personRole} ·{' '}
+                      <a href={SITE.orcid} target="_blank" rel="noopener noreferrer">ORCID {SITE.orcidId}</a>
+                    </span>
+                  </div>
+                </li>
                 {c.channels.map((ch) => (
                   <li key={ch.value}>
                     <Icon name="mail" size={18} />

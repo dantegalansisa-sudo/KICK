@@ -9,6 +9,8 @@ export const SITE = {
   youtube: 'https://youtube.com/',
   linkedin: 'https://linkedin.com/',
   emails: { contact: 'contact@kich.org', info: 'info@kich.org', donate: 'donate@kich.org' },
+  orcid: 'https://orcid.org/0009-0009-4427-3047',
+  orcidId: '0009-0009-4427-3047',
 };
 
 export const whatsappLink = (message: string) =>
@@ -26,12 +28,13 @@ export const IMG = {
 };
 
 export const PROGRAM_META: Record<string, { image: string; icon: IconName }> = {
-  brigades: { image: '/images/clinic-elders.webp', icon: 'stethoscope' },
-  chna: { image: '/images/home-visit.webp', icon: 'clipboard' },
-  education: { image: '/images/children-education.webp', icon: 'book' },
-  maternal: { image: '/images/kerolle-child.webp', icon: 'baby' },
-  water: { image: '/images/hygiene-workshop.webp', icon: 'droplet' },
-  development: { image: '/images/community-garden.webp', icon: 'sprout' },
+  clinics: { image: '/images/clinic-elders.webp', icon: 'stethoscope' },
+  nutrition: { image: '/images/community-garden.webp', icon: 'sprout' },
+  srh: { image: '/images/home-visit.webp', icon: 'heart' },
+  immunization: { image: '/images/kerolle-child.webp', icon: 'baby' },
+  wash: { image: '/images/hygiene-workshop.webp', icon: 'droplet' },
+  schools: { image: '/images/children-education.webp', icon: 'book' },
+  training: { image: '/images/medical-students.webp', icon: 'clipboard' },
 };
 
 export const GALLERY = [
@@ -61,15 +64,14 @@ export const STORY_IMAGES: (string | null)[] = [
   '/images/hygiene-workshop.webp',
 ];
 
-export const PARTNERS = [
-  { name: 'USF Honors College', mark: 'USF' },
-  { name: 'Fundación Salud Isla', mark: 'FSI' },
-  { name: 'Hospital Costa Norte', mark: 'HCN' },
-  { name: 'Caribbean Health Network', mark: 'CHN' },
-  { name: 'Fondation Santé Nord', mark: 'FSN' },
-  { name: 'Water for Bateyes', mark: 'WFB' },
-  { name: 'Health Bridge Canada', mark: 'HBC' },
-];
+// Íconos para las categorías de aliados (textos en i18n: partners.items).
+export const PARTNER_ICONS: IconName[] = ['book', 'stethoscope', 'handshake', 'heart', 'users', 'home'];
+
+// Íconos de las áreas de enfoque (programsPage.focus).
+export const FOCUS_ICONS: IconName[] = ['stethoscope', 'baby', 'book', 'sprout', 'droplet', 'clipboard', 'globe', 'plane'];
+
+// Íconos de la estructura organizativa (aboutPage.structure).
+export const STRUCTURE_ICONS: IconName[] = ['users', 'shield', 'stethoscope', 'hand', 'clipboard'];
 
 export type IconName =
   | 'arrow' | 'arrowLeft' | 'heart' | 'stethoscope' | 'clipboard' | 'book' | 'baby' | 'droplet' | 'sprout'

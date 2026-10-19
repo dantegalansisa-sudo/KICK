@@ -50,6 +50,16 @@ export default function ProgramsGrid() {
               </motion.li>
             );
           })}
+          <motion.li variants={gridItem}>
+            <Link to="/request-help" className="program-cta">
+              <span className="program-cta__icon"><Icon name="hand" size={26} /></span>
+              <h3>{p.ctaTile.title}</h3>
+              <p>{p.ctaTile.text}</p>
+              <span className="program-cta__btn">
+                {p.ctaTile.cta} <Icon name="arrow" size={16} />
+              </span>
+            </Link>
+          </motion.li>
         </motion.ul>
       </div>
     </section>

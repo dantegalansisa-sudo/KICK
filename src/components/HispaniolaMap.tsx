@@ -55,13 +55,12 @@ const DR_D = smoothPath(DR);
 const BORDER_D = smoothPath(BORDER, false);
 
 export const PLACE_COORDS: Record<string, Pt> = {
-  pop: [-70.72, 19.74],
-  sos: [-70.45, 19.71],
-  stg: [-70.7, 19.45],
-  mcr: [-71.5, 19.76],
-  daj: [-71.71, 19.52],
+  pop: [-70.78, 19.72],
+  sos: [-70.5, 19.73],
+  nor: [-70.55, 19.42],
+  daj: [-71.68, 19.5],
   cap: [-72.2, 19.7],
-  sdq: [-69.93, 18.52],
+  trr: [-71.96, 19.6],
 };
 
 interface MapProps {

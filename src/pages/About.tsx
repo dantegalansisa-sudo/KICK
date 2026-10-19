@@ -1,19 +1,11 @@
 import { motion } from 'framer-motion';
 import { useLang } from '../i18n';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { IMG } from '../data/site';
+import { IMG, SITE, STRUCTURE_ICONS } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
-import { Eyebrow, ParallaxImage, Reveal, RevealText, SectionHead } from '../components/motion';
-import { EASE, gridContainer, gridItem } from '../motion';
-
-const initials = (name: string) =>
-  name
-    .replace(/^(Dr\.|Dra\.|Lcda\.|Ing\.)\s*/, '')
-    .split(' ')
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('');
+import { Eyebrow, MagneticButton, ParallaxImage, Reveal, RevealText, SectionHead } from '../components/motion';
+import { gridContainer, gridItem } from '../motion';
 
 export default function About() {
   usePageMeta('about');
@@ -87,10 +79,36 @@ export default function About() {
         </div>
       </section>
 
-      {/* Fundador */}
+      {/* Lema */}
+      <section className="section motto">
+        <div className="container motto__grid">
+          <div>
+            <Eyebrow>{a.mottoEyebrow}</Eyebrow>
+            <RevealText text={a.mottoTitle} className="h1 motto__title" />
+            <span className="script motto__script" aria-hidden="true">Toma la iniciativa</span>
+          </div>
+          <Reveal delay={0.1} className="motto__text">
+            {a.mottoText.map((p, i) => (
+              <p key={i} className={i === 0 ? 'body-xl' : 'body-lg'}>{p}</p>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Director Ejecutivo */}
       <section className="section founder">
         <div className="container founder__grid">
-          <ParallaxImage src={IMG.founderAbout} alt={a.founderImageAlt} className="founder__img" distance={40} />
+          <div className="founder__media">
+            <ParallaxImage src={IMG.founderAbout} alt={a.founderImageAlt} className="founder__img" distance={40} />
+            <Reveal className="founder__programs" delay={0.15}>
+              <h3 className="mini-title">{a.founderProgramsTitle}</h3>
+              <ul>
+                {a.founderPrograms.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
           <div className="founder__text">
             <Eyebrow>{a.founderEyebrow}</Eyebrow>
             <RevealText text={a.founderName} className="h2" />
@@ -105,86 +123,77 @@ export default function About() {
               <p>{a.founderQuote}</p>
               <span className="script">Dr. R. Kerolle</span>
             </Reveal>
+            <Reveal delay={0.25}>
+              <a href={SITE.orcid} target="_blank" rel="noopener noreferrer" className="orcid">
+                <span className="orcid__badge" aria-hidden="true">iD</span>
+                <span>
+                  <small>{a.orcidLabel}</small>
+                  {SITE.orcidId}
+                </span>
+                <Icon name="arrow" size={16} />
+              </a>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Equipo */}
+      {/* Estructura organizativa */}
       <section className="section team">
         <div className="container">
-          <SectionHead eyebrow={a.teamTitle} title={a.teamIntro} layout="stack" />
+          <SectionHead eyebrow={a.structureTitle} title={a.structureIntro} layout="stack" />
           <motion.ul
-            className="team__grid"
+            className="structure"
             variants={gridContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
           >
-            {a.team.map((m) => (
-              <motion.li key={m.name} variants={gridItem} className="person">
-                <span className="person__avatar" aria-hidden="true">{initials(m.name)}</span>
-                <div>
-                  <h3>{m.name}</h3>
-                  <p>{m.role}</p>
-                </div>
+            {a.structure.map((s, i) => (
+              <motion.li key={s.title} variants={gridItem} className={`structure__item${i === 0 ? ' structure__item--lead' : ''}`}>
+                <span className="icon-badge"><Icon name={STRUCTURE_ICONS[i]} size={22} /></span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
               </motion.li>
             ))}
           </motion.ul>
-          <div className="board">
-            <h3 className="board__title">{a.boardTitle}</h3>
-            <ul>
-              {a.board.map((m) => (
-                <li key={m.name}>
-                  <strong>{m.name}</strong>
-                  <span>{m.role}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
-      {/* Transparencia */}
+      {/* Monitoreo, evaluación y transparencia */}
       <section className="section section--cream transparency" id="transparency">
         <div className="container transparency__grid">
           <div>
             <Eyebrow>{a.transparencyTitle}</Eyebrow>
             <RevealText text={a.transparencyIntro} className="h3" />
-            <ul className="bars">
-              {a.allocation.map((row, i) => (
-                <li key={row.label}>
-                  <div className="bars__label">
-                    <span>{row.label}</span>
-                    <strong>{row.pct}%</strong>
+            <motion.ul
+              className="me"
+              variants={gridContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              {a.me.map((m, i) => (
+                <motion.li key={m.title} variants={gridItem}>
+                  <span className="me__num">0{i + 1}</span>
+                  <div>
+                    <h3>{m.title}</h3>
+                    <p>{m.text}</p>
                   </div>
-                  <div className="bars__track">
-                    <motion.span
-                      className={`bars__fill${i === 0 ? ' bars__fill--main' : ''}`}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${row.pct}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.4, delay: i * 0.12, ease: EASE.smooth }}
-                    />
-                  </div>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </div>
-          <div className="reports">
-            <h3 className="reports__title">{a.reportsTitle}</h3>
-            <ul>
-              {a.reports.map((r) => (
-                <li key={r.title}>
-                  <span className="reports__year">{r.year}</span>
-                  <span className="reports__name">{r.title}</span>
-                  <button type="button" className="reports__dl" aria-label={`${a.download}: ${r.title}`} title={t.common.demo}>
-                    <Icon name="download" size={18} />
-                    <span>{a.download}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Reveal className="reports" delay={0.15}>
+            <span className="icon-badge icon-badge--lg"><Icon name="clipboard" size={26} /></span>
+            <h3 className="reports__title">{a.financeTitle}</h3>
+            <p className="reports__text">{a.financeText}</p>
+            <MagneticButton
+              href={`mailto:${SITE.emails.info}?subject=${encodeURIComponent(a.financeTitle + ' — KICH')}`}
+              className="btn btn--primary"
+            >
+              <Icon name="mail" size={18} /> {a.financeCta}
+            </MagneticButton>
+          </Reveal>
         </div>
       </section>
     </>

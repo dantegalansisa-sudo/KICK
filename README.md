@@ -28,6 +28,7 @@ src/
   data/site.ts   WhatsApp, correos, imágenes y datos no textuales
 public/images/   Fotos optimizadas en WebP (reemplazables por las del cliente)
 docs/research.md Investigación de referencias
+docs/technical-file.md Ficha técnica oficial del cliente (fuente de datos reales)
 ```
 
 ## Reemplazar contenido
