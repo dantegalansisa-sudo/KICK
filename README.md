@@ -26,7 +26,7 @@ src/
   pages/         About, Programs, GetInvolved, RequestHelp, Donate, Stories, Contact, NotFound
   styles/        tokens · base · components · sections · pages
   data/site.ts   WhatsApp, correos, imágenes y datos no textuales
-public/images/   Fotos optimizadas en WebP (reemplazables por las del cliente)
+public/images/   Fotos optimizadas en WebP (gallery/ = 24 fotos reales de la galería, versión grande + miniatura)
 docs/research.md Investigación de referencias
 docs/technical-file.md Ficha técnica oficial del cliente (fuente de datos reales)
 ```

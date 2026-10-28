@@ -25,6 +25,7 @@ export default function Footer() {
               <li><Link to="/programs">{t.nav.programs}</Link></li>
               <li><Link to="/#where">{t.nav.where}</Link></li>
               <li><Link to="/stories">{t.nav.stories}</Link></li>
+              <li><Link to="/gallery">{t.nav.gallery}</Link></li>
             </ul>
           </div>
 

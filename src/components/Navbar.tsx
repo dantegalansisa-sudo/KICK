@@ -39,6 +39,7 @@ export default function Navbar() {
     { to: '/#where', label: t.nav.where, hash: true },
     { to: '/get-involved', label: t.nav.involved },
     { to: '/stories', label: t.nav.stories },
+    { to: '/gallery', label: t.nav.gallery },
     { to: '/contact', label: t.nav.contact },
   ];
 

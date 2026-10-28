@@ -15,6 +15,7 @@ const RequestHelp = lazy(() => import('./pages/RequestHelp'));
 const Donate = lazy(() => import('./pages/Donate'));
 const Stories = lazy(() => import('./pages/Stories'));
 const Contact = lazy(() => import('./pages/Contact'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
               <Route path="/request-help" element={<RequestHelp />} />
               <Route path="/donate" element={<Donate />} />
               <Route path="/stories" element={<Stories />} />
+              <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
