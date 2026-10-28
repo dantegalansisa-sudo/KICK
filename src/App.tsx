@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
@@ -27,15 +26,8 @@ export default function App() {
       <a href="#main" className="skip-link">{t.nav.skip}</a>
       <ScrollManager />
       <Navbar />
-      <AnimatePresence mode="wait">
-        <motion.main
-          id="main"
-          key={location.pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
+      {/* Transición de página en CSS: no depende de JS, así nunca queda invisible. */}
+      <main id="main" key={location.pathname} className="page-enter">
           <Suspense fallback={<div className="page-loading" aria-hidden="true" />}>
             <Routes location={location}>
               <Route path="/" element={<Home />} />
@@ -50,8 +42,7 @@ export default function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-        </motion.main>
-      </AnimatePresence>
+      </main>
       <Footer />
       <WhatsAppFloat />
     </>

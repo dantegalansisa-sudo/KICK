@@ -110,12 +110,11 @@ export default function GalleryPage() {
                       layout
                       type="button"
                       className="tile"
+                      style={{ animationDelay: `${(index % 8) * 60}ms` }}
                       onClick={() => setOpen(index)}
                       aria-label={`${t.gallery.open}: ${items[index].alt}`}
-                      initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.6, ease: EASE.smooth, delay: (index % 8) * 0.05 }}
+                      transition={{ duration: 0.5, ease: EASE.smooth }}
                     >
                       <img
                         src={photoThumb(photo.id)}

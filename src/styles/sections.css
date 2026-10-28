@@ -2248,6 +2248,7 @@
   position: relative;
   display: block;
   width: 100%;
+  animation: tile-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--cream-2);
@@ -2335,6 +2336,17 @@
 .tile:focus-visible .tile__zoom {
   opacity: 1;
   transform: none;
+}
+
+@keyframes tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* En táctil, el pie de foto se ve siempre (sin hover). */

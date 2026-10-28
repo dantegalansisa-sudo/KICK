@@ -7,8 +7,15 @@ export default function ScrollManager() {
 
   useEffect(() => {
     if (!hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
-      return;
+      const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+      toTop();
+      // Repetir tras el render de la nueva página (las páginas se cargan bajo demanda).
+      const raf = requestAnimationFrame(toTop);
+      const timer = window.setTimeout(toTop, 120);
+      return () => {
+        cancelAnimationFrame(raf);
+        window.clearTimeout(timer);
+      };
     }
     let tries = 0;
     let timer: number;
