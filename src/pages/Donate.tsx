@@ -5,6 +5,7 @@ import { useLang } from '../i18n';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { IMG, PROGRAM_META, SITE } from '../data/site';
 import Icon from '../components/Icon';
+import PayPalCheckout, { type PaymentResult } from '../components/PayPalCheckout';
 import PageHeader from '../components/PageHeader';
 import { Field, FormSuccess, Select, fieldA11y, useForm } from '../components/forms';
 import { Eyebrow, MagneticButton, ParallaxImage, Reveal, RevealText } from '../components/motion';
@@ -26,9 +27,10 @@ export default function Donate() {
   const [amountError, setAmountError] = useState('');
   const [anonymous, setAnonymous] = useState(false);
   const [news, setNews] = useState(true);
-  const [done, setDone] = useState(false);
+  const [step, setStep] = useState<'form' | 'pay' | 'done'>('form');
+  const [result, setResult] = useState<PaymentResult | null>(null);
   const form = useForm({ dedicate: d.dedicate[0], firstName: '', lastName: '', email: '', country: '' });
-  const { errors, bind } = form;
+  const { values, errors, bind } = form;
 
   const finalAmount = amount === 'custom' ? Number(custom) || 0 : amount;
   const impactText = amount === 'custom' ? d.amountImpacts.custom : d.amountImpacts[String(amount) as AmountKey];
@@ -39,7 +41,14 @@ export default function Donate() {
     setAmountError(amountOk ? '' : t.common.required);
     const ok = form.validate(['firstName', 'lastName', 'email'], ['email']);
     if (!ok || !amountOk) return;
-    setDone(true);
+    setStep('pay');
+    document.querySelector('.donate__card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const onPaid = (r: PaymentResult) => {
+    setResult(r);
+    setStep('done');
+    document.querySelector('.donate__card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -49,13 +58,40 @@ export default function Donate() {
       <section className="section donate">
         <div className="container donate__grid">
           <Reveal className="form-card donate__card">
-            {done ? (
+            {step === 'done' ? (
               <FormSuccess
                 title={d.successTitle}
-                text={`${d.successText} (US$${finalAmount}${monthly ? d.perMonth : ''})`}
-                resetLabel={t.common.back}
-                onReset={() => setDone(false)}
+                text={`${result?.monthly ? d.successMonthly : d.successText} US$${finalAmount}${result?.monthly ? d.perMonth : ''} · ${d.transaction}: ${result?.transactionId ?? ''}`}
               />
+            ) : step === 'pay' ? (
+              <div className="pay-step">
+                <h2 className="h3">{d.payTitle}</h2>
+                <p className="pay-step__intro">{d.payIntro}</p>
+                <dl className="pay-summary">
+                  <div>
+                    <dt>{d.summaryAmount}</dt>
+                    <dd>
+                      US${finalAmount}
+                      {monthly ? d.perMonth : ''}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{d.summaryType}</dt>
+                    <dd>{monthly ? d.monthly : d.once}</dd>
+                  </div>
+                  <div>
+                    <dt>{d.summaryDedicate}</dt>
+                    <dd>{values.dedicate}</dd>
+                  </div>
+                </dl>
+                <PayPalCheckout amount={finalAmount} monthly={monthly} designation={values.dedicate} onSuccess={onPaid} />
+                <button type="button" className="btn btn--text pay-step__back" onClick={() => setStep('form')}>
+                  <Icon name="arrowLeft" size={18} /> {d.edit}
+                </button>
+                <p className="donate__secure">
+                  <Icon name="shield" size={16} /> {d.demoNote}
+                </p>
+              </div>
             ) : (
               <form onSubmit={submit} noValidate>
                 <div className="toggle" role="radiogroup" aria-label={`${d.once} / ${d.monthly}`}>
