@@ -6,7 +6,7 @@ import { IMG, INVOLVED_ICONS } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
 import Accordion from '../components/Accordion';
-import { Chips, Field, FormSuccess, Select, fieldA11y, useForm } from '../components/forms';
+import { Chips, Field, FormSuccess, Honeypot, Select, SendError, fieldA11y, useForm, useSubmit } from '../components/forms';
 import { Eyebrow, MagneticButton, ParallaxImage, Reveal, RevealText } from '../components/motion';
 import { EASE, gridContainer, gridItem } from '../motion';
 
@@ -191,6 +191,7 @@ function VolunteerForm() {
   const [skills, setSkills] = useState<string[]>([]);
   const form = useForm({ type: '', trip: '', duration: '', name: '', email: '', phone: '', country: '', message: '' });
   const { values, errors, bind } = form;
+  const sub = useSubmit('volunteer');
 
   const next = () => {
     const ok = step === 0 ? form.validate(['type']) : step === 1 ? form.validate(['trip', 'duration']) : true;
@@ -202,11 +203,12 @@ function VolunteerForm() {
     setDir(-1);
     setStep((s) => Math.max(s - 1, 0));
   };
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const el = e.currentTarget;
     if (step < 2) return next();
     if (!form.validate(['name', 'email', 'country'], ['email'])) return;
-    setDone(true);
+    if (await sub.send({ ...values, skills: skills.join(', ') }, el)) setDone(true);
   };
   const restart = () => {
     form.reset();
@@ -239,6 +241,7 @@ function VolunteerForm() {
             <FormSuccess title={f.successTitle} text={f.successText} onReset={restart} resetLabel={t.common.sendAnother} />
           ) : (
             <form onSubmit={submit} noValidate>
+              <Honeypot />
               <div className="form-card__progress" aria-hidden="true">
                 <motion.span animate={{ width: `${((step + 1) / 3) * 100}%` }} transition={{ duration: 0.6, ease: EASE.smooth }} />
               </div>
@@ -318,10 +321,11 @@ function VolunteerForm() {
                 ) : (
                   <span />
                 )}
-                <MagneticButton type="submit" className="btn btn--primary" strength={0.2}>
-                  {step < 2 ? t.common.next : f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
+                <MagneticButton type="submit" className="btn btn--primary" strength={0.2} disabled={sub.sending}>
+                  {step < 2 ? t.common.next : sub.sending ? t.common.sending : f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
                 </MagneticButton>
               </div>
+              <SendError message={sub.error} />
               <p className="form-note">{t.common.demo}</p>
             </form>
           )}

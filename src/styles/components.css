@@ -1429,3 +1429,29 @@
     opacity: 0;
   }
 }
+
+/* Envío de formularios */
+.hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-100);
+  color: var(--accent-600);
+  font-size: 0.9rem;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}

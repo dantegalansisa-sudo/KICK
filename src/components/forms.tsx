@@ -194,3 +194,54 @@ export function FormSuccess({ title, text, onReset, resetLabel }: { title: strin
     </motion.div>
   );
 }
+
+/* ---------- Envío real (Resend vía /api/forms) ---------- */
+
+export type FormKind = 'contact' | 'volunteer' | 'request' | 'newsletter';
+
+// Campo trampa invisible: las personas no lo ven ni lo llenan; los bots sí.
+export function Honeypot() {
+  return (
+    <div className="hp" aria-hidden="true">
+      <label htmlFor="website">Website</label>
+      <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+    </div>
+  );
+}
+
+export function useSubmit(kind: FormKind) {
+  const { lang, t } = useLang();
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+
+  const send = async (data: Record<string, unknown>, formEl?: HTMLFormElement | null) => {
+    setSending(true);
+    setError('');
+    try {
+      const website = (formEl?.querySelector<HTMLInputElement>('input[name="website"]')?.value ?? '').trim();
+      const res = await fetch('/api/forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: kind, lang, data, website }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      return true;
+    } catch {
+      setError(t.common.sendError);
+      return false;
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return { send, sending, error };
+}
+
+export function SendError({ message }: { message: string }) {
+  if (!message) return null;
+  return (
+    <p className="form-error" role="alert">
+      <Icon name="shield" size={16} /> {message}
+    </p>
+  );
+}

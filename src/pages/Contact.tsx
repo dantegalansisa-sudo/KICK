@@ -6,7 +6,7 @@ import { SITE, whatsappLink } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
 import HispaniolaMap from '../components/HispaniolaMap';
-import { Field, FormSuccess, Select, fieldA11y, useForm } from '../components/forms';
+import { Field, FormSuccess, Honeypot, Select, SendError, fieldA11y, useForm, useSubmit } from '../components/forms';
 import { MagneticButton, Reveal } from '../components/motion';
 
 export default function Contact() {
@@ -17,11 +17,13 @@ export default function Contact() {
   const [done, setDone] = useState(false);
   const form = useForm({ name: '', email: '', phone: '', reason: f.reasons[0], message: '' });
   const { errors, bind } = form;
+  const sub = useSubmit('contact');
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const el = e.currentTarget;
     if (!form.validate(['name', 'email', 'message'], ['email'])) return;
-    setDone(true);
+    if (await sub.send(form.values, el)) setDone(true);
   };
 
   return (
@@ -43,6 +45,7 @@ export default function Contact() {
               />
             ) : (
               <form onSubmit={submit} noValidate>
+                <Honeypot />
                 <h2 className="h3 form-card__title">{f.title}</h2>
                 <div className="form-grid">
                   <Field id="name" label={f.name} error={errors.name}>
@@ -63,10 +66,11 @@ export default function Contact() {
                 </div>
                 <div className="form-card__nav">
                   <p className="form-note">{t.common.demo}</p>
-                  <MagneticButton type="submit" className="btn btn--primary btn--lg" strength={0.2}>
-                    {f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
+                  <MagneticButton type="submit" className="btn btn--primary btn--lg" strength={0.2} disabled={sub.sending}>
+                    {sub.sending ? t.common.sending : f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
                   </MagneticButton>
                 </div>
+                <SendError message={sub.error} />
               </form>
             )}
           </Reveal>

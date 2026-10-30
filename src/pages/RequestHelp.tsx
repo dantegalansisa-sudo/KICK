@@ -5,7 +5,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 import { whatsappLink } from '../data/site';
 import Icon from '../components/Icon';
 import PageHeader from '../components/PageHeader';
-import { Chips, Field, FormSuccess, Select, fieldA11y, useForm } from '../components/forms';
+import { Chips, Field, FormSuccess, Honeypot, Select, SendError, fieldA11y, useForm, useSubmit } from '../components/forms';
 import { MagneticButton, Reveal } from '../components/motion';
 import { gridContainer, gridItem } from '../motion';
 
@@ -22,12 +22,15 @@ export default function RequestHelp() {
     people: '', need: '', urgency: '', description: '', phone: '', email: '',
   });
   const { values, errors, bind } = form;
+  const sub = useSubmit('request');
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const el = e.currentTarget;
     const ok = form.validate(['name', 'role', 'community', 'country', 'need', 'urgency', 'phone'], ['email']);
     setConsentError(consent ? '' : t.common.required);
     if (!ok || !consent) return;
+    if (!(await sub.send(values, el))) return;
     setDone(true);
     window.scrollTo({ top: (document.getElementById('request-form')?.offsetTop ?? 0) - 100, behavior: 'smooth' });
   };
@@ -73,6 +76,7 @@ export default function RequestHelp() {
               />
             ) : (
               <form onSubmit={submit} noValidate>
+                <Honeypot />
                 <h2 className="h3 form-card__title">{f.title}</h2>
 
                 <fieldset className="form-section">
@@ -165,10 +169,11 @@ export default function RequestHelp() {
 
                 <div className="form-card__nav">
                   <p className="form-note">{t.common.demo}</p>
-                  <MagneticButton type="submit" className="btn btn--primary btn--lg" strength={0.2}>
-                    {f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
+                  <MagneticButton type="submit" className="btn btn--primary btn--lg" strength={0.2} disabled={sub.sending}>
+                    {sub.sending ? t.common.sending : f.submit} <Icon name="arrow" size={18} className="btn__arrow" />
                   </MagneticButton>
                 </div>
+                <SendError message={sub.error} />
               </form>
             )}
           </Reveal>

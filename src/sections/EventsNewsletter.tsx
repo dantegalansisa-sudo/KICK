@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLang } from '../i18n';
 import Icon from '../components/Icon';
+import { Honeypot, useSubmit } from '../components/forms';
 import { Eyebrow, MagneticButton, Reveal, RevealText } from '../components/motion';
 import { gridContainer, gridItem } from '../motion';
 
@@ -13,14 +14,17 @@ export default function EventsNewsletter() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
+  const sub = useSubmit('newsletter');
 
-  const submit = (ev: FormEvent) => {
+  const submit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
+    const el = ev.currentTarget;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError(email.trim() ? t.common.invalidEmail : t.common.required);
       return;
     }
-    setDone(true);
+    if (await sub.send({ email: email.trim() }, el)) setDone(true);
+    else setError(t.common.sendError);
   };
 
   return (
@@ -75,6 +79,7 @@ export default function EventsNewsletter() {
               </motion.p>
             ) : (
               <motion.form key="form" className="newsletter__form" onSubmit={submit} noValidate exit={{ opacity: 0 }}>
+                <Honeypot />
                 <label htmlFor="nl-email" className="sr-only">{n.placeholder}</label>
                 <div className={`newsletter__field${error ? ' has-error' : ''}`}>
                   <input
@@ -90,7 +95,7 @@ export default function EventsNewsletter() {
                       setError('');
                     }}
                   />
-                  <MagneticButton type="submit" className="btn btn--primary" strength={0.2} ariaLabel={n.button}>
+                  <MagneticButton type="submit" className="btn btn--primary" strength={0.2} ariaLabel={n.button} disabled={sub.sending}>
                     <span className="newsletter__btn-text">{n.button}</span>
                     <Icon name="arrow" size={18} />
                   </MagneticButton>
