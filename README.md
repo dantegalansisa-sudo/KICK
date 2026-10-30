@@ -35,4 +35,4 @@ docs/technical-file.md Ficha técnica oficial del cliente (fuente de datos reale
 
 - **Textos:** `src/i18n/es.ts` y `src/i18n/en.ts` (palabras entre `*asteriscos*` se muestran en itálica).
 - **Fotos:** sustituir los archivos en `public/images/` manteniendo el nombre.
-- **Contacto:** `src/data/site.ts` (WhatsApp +1 829 702 1591, correos @kich.org).
+- **Contacto:** `src/data/site.ts` (WhatsApp +1 829 702 1591, correo institucional kerolle.initiative.health@gmail.com).

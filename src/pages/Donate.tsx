@@ -264,7 +264,7 @@ export default function Donate() {
                 <span className="icon-badge"><Icon name={(['sprout', 'stethoscope', 'handshake', 'globe'] as const)[i]} size={22} /></span>
                 <h3>{w.title}</h3>
                 <p>{w.text}</p>
-                <a href={`mailto:${SITE.emails.donate}?subject=${encodeURIComponent(w.title)}`} className="link-arrow link-arrow--sm">
+                <a href={`mailto:${SITE.emails.institution}?subject=${encodeURIComponent(w.title)}`} className="link-arrow link-arrow--sm">
                   {d.otherCta} <Icon name="arrow" size={16} />
                 </a>
               </motion.li>

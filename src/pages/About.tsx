@@ -188,7 +188,7 @@ export default function About() {
             <h3 className="reports__title">{a.financeTitle}</h3>
             <p className="reports__text">{a.financeText}</p>
             <MagneticButton
-              href={`mailto:${SITE.emails.info}?subject=${encodeURIComponent(a.financeTitle + ' — KICH')}`}
+              href={`mailto:${SITE.emails.institution}?subject=${encodeURIComponent(a.financeTitle + ' — KICH')}`}
               className="btn btn--primary"
             >
               <Icon name="mail" size={18} /> {a.financeCta}

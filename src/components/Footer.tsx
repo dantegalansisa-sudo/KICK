@@ -43,13 +43,10 @@ export default function Footer() {
             <h3>{t.footer.contact}</h3>
             <ul>
               <li>
-                <a href={`mailto:${SITE.emails.contact}`}><Icon name="mail" size={16} /> {SITE.emails.contact}</a>
+                <a href={`mailto:${SITE.emails.institution}`}><Icon name="mail" size={16} /> {SITE.emails.institution}</a>
               </li>
               <li>
-                <a href={`mailto:${SITE.emails.info}`}><Icon name="mail" size={16} /> {SITE.emails.info}</a>
-              </li>
-              <li>
-                <a href={`mailto:${SITE.emails.donate}`}><Icon name="mail" size={16} /> {SITE.emails.donate}</a>
+                <a href={`mailto:${SITE.emails.director}`}><Icon name="mail" size={16} /> {SITE.emails.director}</a>
               </li>
               <li>
                 <a href={whatsappLink(t.whatsapp.message)} target="_blank" rel="noopener noreferrer">

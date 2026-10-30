@@ -116,13 +116,6 @@ export default function Contact() {
                     <span className="pre">{c.location}</span>
                   </div>
                 </li>
-                <li>
-                  <Icon name="clock" size={18} />
-                  <div>
-                    <small>{c.hoursLabel}</small>
-                    <span>{c.hours}</span>
-                  </div>
-                </li>
               </ul>
             </Reveal>
 

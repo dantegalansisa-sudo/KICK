@@ -123,8 +123,8 @@ export default function Navbar() {
                 <a href={whatsappLink(t.whatsapp.message)} target="_blank" rel="noopener noreferrer" className="mobile-menu__contact">
                   <Icon name="whatsapp" size={18} /> {SITE.whatsappDisplay}
                 </a>
-                <a href={`mailto:${SITE.emails.info}`} className="mobile-menu__contact">
-                  <Icon name="mail" size={18} /> {SITE.emails.info}
+                <a href={`mailto:${SITE.emails.institution}`} className="mobile-menu__contact">
+                  <Icon name="mail" size={18} /> {SITE.emails.institution}
                 </a>
               </motion.div>
             </nav>

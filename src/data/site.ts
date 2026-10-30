@@ -8,7 +8,8 @@ export const SITE = {
   facebook: 'https://facebook.com/',
   youtube: 'https://youtube.com/',
   linkedin: 'https://linkedin.com/',
-  emails: { contact: 'contact@kich.org', info: 'info@kich.org', donate: 'donate@kich.org' },
+  // Correos reales: institucional (recibe formularios) y del Director Ejecutivo.
+  emails: { institution: 'kerolle.initiative.health@gmail.com', director: 'rkerollemd@aol.com' },
   orcid: 'https://orcid.org/0009-0009-4427-3047',
   orcidId: '0009-0009-4427-3047',
 };
