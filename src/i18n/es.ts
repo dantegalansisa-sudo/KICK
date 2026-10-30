@@ -612,7 +612,7 @@ export const es = {
     successMonthly: 'Tu donación mensual quedó activa. PayPal te enviará la confirmación por correo y puedes cancelarla cuando quieras desde tu cuenta de PayPal.',
     transaction: 'N.º de transacción',
     successTitle: '¡Gracias por tomar la iniciativa!',
-    successText: 'Tu donación fue procesada con éxito. PayPal te enviará el recibo por correo.',
+    successText: 'Tu donación fue procesada con éxito. Te enviamos un correo de agradecimiento y PayPal te enviará el recibo oficial.',
     supportsTitle: 'Tu aporte sostiene',
     financeNote: 'Informes financieros disponibles a solicitud.',
     otherTitle: 'Otras formas de dar',

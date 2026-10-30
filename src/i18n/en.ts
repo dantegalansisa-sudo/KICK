@@ -610,7 +610,7 @@ export const en: Dict = {
     successMonthly: 'Your monthly donation is active. PayPal will email your confirmation, and you can cancel it anytime from your PayPal account.',
     transaction: 'Transaction ID',
     successTitle: 'Thank you for taking the initiative!',
-    successText: 'Your donation was processed successfully. PayPal will email your receipt.',
+    successText: 'Your donation was processed successfully. We’ve emailed you a thank-you note, and PayPal will send your official receipt.',
     supportsTitle: 'Your gift sustains',
     financeNote: 'Financial reports available upon request.',
     otherTitle: 'Other ways to give',

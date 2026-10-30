@@ -11,10 +11,22 @@ export interface PaymentResult {
   monthly: boolean;
 }
 
+// Datos del formulario para los correos de agradecimiento y aviso (el monto lo confirma PayPal).
+export interface DonorDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  designation: string;
+  anonymous: boolean;
+  newsletter: boolean;
+}
+
 interface Props {
   amount: number;
   monthly: boolean;
   designation: string;
+  donor: DonorDetails;
   onSuccess: (r: PaymentResult) => void;
 }
 
@@ -76,13 +88,15 @@ async function post<T>(url: string, body: unknown): Promise<T> {
   return data as T;
 }
 
-export default function PayPalCheckout({ amount, monthly, designation, onSuccess }: Props) {
+export default function PayPalCheckout({ amount, monthly, designation, donor, onSuccess }: Props) {
   const { t, lang } = useLang();
   const d = t.donatePage;
   const ref = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<Status>('loading');
   const successRef = useRef(onSuccess);
   successRef.current = onSuccess;
+  const donorRef = useRef(donor);
+  donorRef.current = donor;
 
   useEffect(() => {
     let cancelled = false;
@@ -117,6 +131,11 @@ export default function PayPalCheckout({ amount, monthly, designation, onSuccess
                 return actions.subscription.create({ plan_id: planId, custom_id: designation.slice(0, 127) });
               },
               onApprove: async (data: { subscriptionID: string }) => {
+                // Los correos son un extra: si fallan, la suscripción igual quedó activa.
+                await post('/api/paypal/confirm-subscription', {
+                  subscriptionId: data.subscriptionID,
+                  donor: { ...donorRef.current, lang },
+                }).catch((e) => console.error('[paypal] confirm-subscription', e));
                 successRef.current({ transactionId: data.subscriptionID, monthly: true });
               },
             })
@@ -129,6 +148,7 @@ export default function PayPalCheckout({ amount, monthly, designation, onSuccess
               onApprove: async (data: { orderID: string }) => {
                 const r = await post<{ status: string; transactionId: string }>('/api/paypal/capture-order', {
                   orderId: data.orderID,
+                  donor: { ...donorRef.current, lang },
                 });
                 if (r.status !== 'COMPLETED') throw new Error(`Capture status ${r.status}`);
                 successRef.current({ transactionId: r.transactionId, monthly: false });

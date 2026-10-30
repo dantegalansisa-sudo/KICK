@@ -93,3 +93,56 @@ export function confirmationEmail(lang: 'es' | 'en', name: string, heading: stri
 <p style="font-size:15px;line-height:1.6;margin:28px 0 0;color:#3f4b44;">${sign}<br><strong style="color:#0e2f21;">Dr. Reginald Kerolle</strong><br>KICH</p>`;
   return { html: shell(heading, body, message), text: `${hi}\n\n${message}\n\n${sign}\nDr. Reginald Kerolle — KICH\n${SITE}` };
 }
+
+// ---------- Donaciones ----------
+
+export interface DonationInfo {
+  lang: 'es' | 'en';
+  name: string;
+  amount: string;
+  currency: string;
+  monthly: boolean;
+  designation: string;
+  reference: string;
+}
+
+export function donationThankYouEmail(d: DonationInfo) {
+  const es = d.lang === 'es';
+  const amount = `US$${d.amount}${d.monthly ? (es ? ' al mes' : ' per month') : ''}`;
+  const heading = es ? '¡Gracias por tu donación!' : 'Thank you for your donation!';
+  const hi = es ? `Hola ${d.name},` : `Hi ${d.name},`;
+  const p1 = es
+    ? `En nombre de todo el equipo de la Iniciativa Kerolle para la Salud Comunitaria, gracias de corazón. Tu aporte de ${amount} se convierte en consultas gratuitas, prevención y educación en salud para familias de bateyes y comunidades rurales del norte de República Dominicana y Haití.`
+    : `On behalf of the entire Kerolle Initiative for Community Health team, thank you from the bottom of our hearts. Your gift of ${amount} becomes free check-ups, prevention and health education for families in bateyes and rural communities across northern Dominican Republic and Haiti.`;
+  const p2 = d.monthly
+    ? es
+      ? 'Al ser una donación mensual, nos permites planificar clínicas con meses de anticipación. Puedes modificarla o cancelarla cuando quieras desde tu cuenta de PayPal.'
+      : 'Because your gift is monthly, you help us plan clinics months in advance. You can change or cancel it anytime from your PayPal account.'
+    : es
+      ? 'Cuando ves a alguien que necesita ayuda y actúas, estás tomando la iniciativa. Hoy lo hiciste tú.'
+      : 'When you see someone in need and act, you are taking the initiative. Today, you did.';
+  const labels = es
+    ? { amount: 'Monto', type: 'Tipo', dest: 'Destino', ref: 'N.º de transacción', once: 'Una vez', monthly: 'Mensual' }
+    : { amount: 'Amount', type: 'Type', dest: 'Directed to', ref: 'Transaction ID', once: 'One-time', monthly: 'Monthly' };
+  const note = es
+    ? 'PayPal te envía por separado el recibo oficial del pago. Guarda este correo como constancia de tu donación.'
+    : 'PayPal sends you the official payment receipt separately. Keep this email as a record of your donation.';
+  const sign = es ? 'Con gratitud,' : 'With gratitude,';
+  const role = es ? 'Fundador y Director Ejecutivo' : 'Founder & Executive Director';
+  const row = (k: string, v: string) =>
+    `<tr><td style="padding:10px 14px;border-bottom:1px solid #eee5d6;font-size:12px;color:#6a756e;text-transform:uppercase;letter-spacing:1px;">${escapeHtml(k)}</td><td style="padding:10px 14px;border-bottom:1px solid #eee5d6;font-size:15px;color:#0e2f21;" align="right">${escapeHtml(v)}</td></tr>`;
+
+  const body = `<div style="text-align:center;margin-bottom:22px;"><div style="display:inline-block;width:64px;height:64px;line-height:64px;border-radius:50%;background:#e3f4e1;color:#c4552d;font-size:30px;">&#10084;</div></div>
+<h1 style="font-family:Georgia,serif;font-weight:normal;font-size:30px;color:#0e2f21;margin:0 0 18px;text-align:center;">${escapeHtml(heading)}</h1>
+<p style="font-size:16px;line-height:1.6;margin:0 0 14px;">${escapeHtml(hi)}</p>
+<p style="font-size:16px;line-height:1.6;margin:0 0 14px;color:#3f4b44;">${escapeHtml(p1)}</p>
+<p style="font-size:16px;line-height:1.6;margin:0 0 24px;color:#3f4b44;">${escapeHtml(p2)}</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee5d6;border-radius:12px;background:#f7f3ea;margin-bottom:18px;">
+${row(labels.amount, amount)}${row(labels.type, d.monthly ? labels.monthly : labels.once)}${row(labels.dest, d.designation)}${row(labels.ref, d.reference)}
+</table>
+<p style="font-size:13px;line-height:1.5;color:#6a756e;margin:0 0 26px;">${escapeHtml(note)}</p>
+<p style="font-size:15px;line-height:1.6;margin:0;color:#3f4b44;">${sign}<br><strong style="color:#0e2f21;">Dr. Reginald Kerolle</strong><br>${role} · KICH</p>`;
+
+  const text = `${hi}\n\n${p1}\n\n${p2}\n\n${labels.amount}: ${amount}\n${labels.type}: ${d.monthly ? labels.monthly : labels.once}\n${labels.dest}: ${d.designation}\n${labels.ref}: ${d.reference}\n\n${note}\n\n${sign}\nDr. Reginald Kerolle — KICH`;
+  return { subject: `KICH — ${heading}`, html: shell(heading, body, p1), text };
+}

@@ -84,7 +84,21 @@ export default function Donate() {
                     <dd>{values.dedicate}</dd>
                   </div>
                 </dl>
-                <PayPalCheckout amount={finalAmount} monthly={monthly} designation={values.dedicate} onSuccess={onPaid} />
+                <PayPalCheckout
+                  amount={finalAmount}
+                  monthly={monthly}
+                  designation={values.dedicate}
+                  donor={{
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    email: values.email,
+                    country: values.country,
+                    designation: values.dedicate,
+                    anonymous,
+                    newsletter: news,
+                  }}
+                  onSuccess={onPaid}
+                />
                 <button type="button" className="btn btn--text pay-step__back" onClick={() => setStep('form')}>
                   <Icon name="arrowLeft" size={18} /> {d.edit}
                 </button>
